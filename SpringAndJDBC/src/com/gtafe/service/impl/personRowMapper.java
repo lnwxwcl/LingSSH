@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.gtafe.bean.Person;
 
 /**
- * 查询结果接收方法。queryForObject所需参数
+ * 查询结果接收方法。queryForObject所需的参数
  * */
 public class personRowMapper implements RowMapper {
 
