@@ -1,0 +1,20 @@
+<?xml version="1.0"?>    
+<!DOCTYPE hibernate-mapping PUBLIC     
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"    
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">        
+<hibernate-mapping package="com.gtafe.AI.doMain">    
+  
+    <class name="Task">    
+        <id name="Taskid">    
+           <generator class="uuid"/><!--自增长类型-->
+        </id>    
+        <property name="TaskName"/>  
+        <property name="TaskStartDate" type="date" length="8"/>
+        <property name="TaskEndDate"  type="date" length="8"/>
+        <property name="Type" />
+        <property name="Remarks" length="5000"/>
+        <property name="TaskCreateDate" length="50"/>
+        <property name="TaskTableName" length="50"/>
+    </class>    
+        
+</hibernate-mapping>    

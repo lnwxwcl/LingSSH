@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+
+	<property name="dialect">
+		org.hibernate.dialect.MySQL57Dialect
+	</property><!-- SQL方言 -->
+
+	<!-- 其他配置 -->
+	<property name="show_sql">true</property><!-- 是否显示SQL语句 -->
+	<property name="format_sql">false</property><!-- 是否格式化SQL语句 -->
+	<property name="hbm2ddl.auto">update</property><!--自动创建表结构 -->
+
+	<!-- 导入类映射文件 -->
+	<mapping resource="com/gtafe/AI/doMain/User.hbm.xml" />
+	<mapping resource="com/gtafe/AI/doMain/Task.hbm.xml" />
+</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<!-- 指定需要Struts2处理的请求后缀 -->
+	<constant name="struts.serve.static.browserCache" value="false"></constant>
+	<!-- 当struts的配置文件修改后，系统是否自动重新加载该文件，默认为false，开发阶段应打开 -->
+	<constant name="struts.configuration.xml.reload" value="true"></constant>
+
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<!-- 默认的视图主题 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- 开发模式，不用重启服务器即可加载更改后struts配置 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<!-- 是否开启动态方法调用 -->
+	<constant name="struts.action.extension" value=",action,do,go"></constant>
+	<!-- 修改Struts action的访问后缀为空，也可设置为多个后缀，如:value="action,do,go" -->
+	<!--<constant name="struts.multipart.maxSize" value=""></constant> -->
+	<constant name="struts.objectFactory" value="spring" /> <!--与Spring整合。action交由spring创建维护 -->
+	<!--添加包 -->
+	<package name="default" namespace="/" extends="struts-default">
+		<!-- 定义处理请求URL为*.action的Action -->
+		<global-allowed-methods>regex:.*</global-allowed-methods>
+		<action name="login" class="com.gtafe.AI.View.UserAction" method="login">
+			<!-- 定义处理结果字符串和资源之间的映射关系 -->
+			<result name="success">/WEB-INF/html/index.jsp</result>
+			<result name="tologin">login.jsp</result>
+		</action>
+		<action name="loginoff" class="com.gtafe.AI.View.UserAction" method="loginoff">
+			<!-- 定义处理结果字符串和资源之间的映射关系 -->
+			<result name="tologin" type="redirectAction">login.jsp</result>
+		</action>
+		<action name="changePSWD" class="com.gtafe.AI.View.UserAction" method="changePSWD">
+			<!-- 定义处理结果字符串和资源之间的映射关系 -->
+			<result name="ok">/WEB-INF/html/pswd.jsp</result>
+			<result name="no">/WEB-INF/html/form_basic.jsp</result>
+		</action>
+		
+		<action name="task_*" class="com.gtafe.AI.View.TaskAction" method="{1}">
+			<!-- 定义处理结果字符串和资源之间的映射关系 -->
+			<result name="table_complete">/WEB-INF/html/table_complete.jsp</result>
+		</action>
+		
+		<action name="*" class="com.gtafe.AI.View.UrlAction" method="{1}">
+			<!-- 定义处理结果字符串和资源之间的映射关系 -->
+			<result name="{1}">/WEB-INF/html/{1}.jsp</result>
+			<result name="tologin">login.jsp</result>
+		</action>
+		
+	</package>
+
+
+</struts>    

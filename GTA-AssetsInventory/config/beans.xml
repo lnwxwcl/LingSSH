@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<context:component-scan base-package="com.gtafe.AI" />
+	<!-- 自动扫描装配bean -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<!-- 导入外部配置文件 -->
+
+	<!-- 整合hibernate配置 -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<!-- hibernate配置的位置 -->
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<!-- 配置C3P0数据库连接池 -->
+		<property name="dataSource">
+			<bean class="com.mchange.v2.c3p0.ComboPooledDataSource">
+				<property name="driverClass" value="${d}" />
+				<property name="jdbcUrl" value="${j}" />
+				<property name="user" value="${u}" />
+				<property name="password" value="${p}" />
+				<property name="initialPoolSize" value="1" />
+				<property name="minPoolSize" value="1" />
+				<property name="maxPoolSize" value="300" />
+				<property name="maxIdleTime" value="60" />
+				<property name="acquireIncrement" value="5" />
+				<property name="idleConnectionTestPeriod" value="60" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 事务管理器配置 -->
+	<bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	<!-- 使用基于注解的方式配置事务管理 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+</beans>
